@@ -80,8 +80,8 @@ db_subnet_group_description = "rds-subnet-group"
 #-------------------------------------------------
 # Route53 
 #-------------------------------------------------
-domain_name = "wp-abdullah.xldp.xgrid.co"
-zone_name   = "xldp.xgrid.co"
+domain_name = "wp-abdullah.equationsquare.com"
+zone_name   = "equationsquare.com"
 
 
 
@@ -89,6 +89,6 @@ zone_name   = "xldp.xgrid.co"
 # tags 
 #-------------------------------------------------
 tags = {
-  owner   = "abdullah.tarar@xgrid.co"
-  creator = "abdullah.tarar@xgrid.co"
+  owner   = "abdullah.tarar@equationsqaure"
+  creator = "abdullah.tarar@equationsquare"
 }
