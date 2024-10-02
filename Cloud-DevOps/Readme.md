@@ -20,4 +20,4 @@ Cloud and DevOps are the backbones of modern infrastructure, enabling efficient 
     
 *   **Containerization & Orchestration**: Utilizing Docker and Kubernetes to manage and scale containerized applications.
 
-![devops_image](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.infinijith.com%2Fblog%2Fdev-ops%2Fdevops-cloud-computing&psig=AOvVaw3MlBocxvnFd7swPLRW52oU&ust=1727982604510000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDr7Y6z8IgDFQAAAAAdAAAAABAJ)
+![devops_image](./large.png)
