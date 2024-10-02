@@ -26,7 +26,7 @@ Artificial Intelligence (AI) is at the core of our company's innovation strategy
 
 ---
 
-## DevOps
+## DevOps & Cloud
 
 ### Overview
 Our DevOps practices ensure the smooth integration and continuous delivery of software. We focus on **automation**, **monitoring**, and **infrastructure as code** to keep operations reliable and scalable.
