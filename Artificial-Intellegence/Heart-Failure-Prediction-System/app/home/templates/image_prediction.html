@@ -1,0 +1,46 @@
+
+{% extends "base-site.html" %}
+
+{% block title %} UI Typography {% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Classification Prediction Results</title>
+    <style>
+        body {
+            background-color: black; 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+        }
+        h1 {
+            margin-bottom: 60px;
+            text-align: center; 
+        }
+        p {
+            font-size: 12px;
+            margin: 10px 0; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Prediction Results</h1>
+    <div style="width: 60%; margin: auto;">
+        <p style="color: red; font-size: 25px; padding: 15px;"><strong>Prediction:</strong> {{ prediction }}</p>
+        <p><strong>Recommendation:</strong></p>
+        <ul>
+            {% for sentence in recommendation %}
+                <li>{{ sentence }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
