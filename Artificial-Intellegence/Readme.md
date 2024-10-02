@@ -11,3 +11,4 @@ Artificial Intelligence (AI) is at the core of our company's innovation strategy
 - **Machine Learning Models**: Creating predictive models for data analysis and decision-making.
 - **AI-Driven APIs**: Implementing scalable APIs for AI model deployment and inference.
 
+![ai_image](https://github.com/user-attachments/assets/5942cf42-9968-4023-9589-cb466931b568)
