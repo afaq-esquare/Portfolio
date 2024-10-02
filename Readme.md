@@ -1,8 +1,6 @@
 # Welcome to Equations Square Portfolio
 
-<div align="center">
-  <img src="./959c1d7a-8c83-4fb7-ae30-79ea239b1660.png" alt="Company Logo" width="300" height="300"/>
-</div>
+![Company Logo](./959c1d7a-8c83-4fb7-ae30-79ea239b1660.png) 
 
 Welcome to the portfolio of Equations Square, where we innovate and integrate cutting-edge technologies in **AI**, **DevOps**, **Blockchain**, **Web Development**, and Data Engineering. This repository is the central hub for all our project source codes, utilities, and documentation. Below is a breakdown of our focus areas and how each contributes to our mission of building robust, scalable, and intelligent solutions.
 
