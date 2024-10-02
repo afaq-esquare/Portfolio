@@ -1,0 +1,58 @@
+{% extends "base-site.html" %}
+
+{% block title %} prediction {% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Failure Prediction</title>
+</head>
+<style>
+    body {
+        background-color: black; 
+        color: white; 
+        font-family: Arial, sans-serif; 
+        padding: 20px; 
+    }
+    h1 {
+        margin-bottom: 60px;
+        text-align: center; 
+    }
+    p {
+        font-size: 18px;
+        margin: 10px 0; 
+    }
+</style>
+<body>
+    <h1 style="margin-top: 50px;">Extracted Text</h1>  
+    {% if extraction_result %}
+        <p style="width: 50%;
+                margin: auto;
+                padding: 20px 20px 20px 20px;">Extracted Text: {{ extraction_result }}</p>
+    {% endif %}
+    <form method="POST" action="/predict_from_image">
+        <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+            <input style="background-color: rgb(150, 100, 230);
+                border-radius: 12px;
+                border: 0;
+                box-sizing: border-box;
+                color: #eee;
+                cursor: pointer;
+                font-size: 18px;
+                height: 50px;
+                margin-top: 38px;
+                text-align: center;
+                width: 10%;" type="submit" value="Predict">
+        </div>
+    </form>
+</body>
+</html>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

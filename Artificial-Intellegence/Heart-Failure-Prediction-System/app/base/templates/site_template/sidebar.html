@@ -1,0 +1,71 @@
+
+
+    <div class="sidebar" data-color="purple" data-background-color="black" >
+        <div class="logo">
+        </div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            {% if current_user.is_authenticated %}  
+            <li class="nav-item active  ">
+              <a class="nav-link" href="/">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/heart">
+                <i class="material-icons">library_books</i>
+                <p>Heart Prediction</p>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/image">
+                <i class="material-icons">bubble_chart</i>
+                <p>Image Classification</p>
+              </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/table">
+                <i class="material-icons">content_paste</i>
+                <p>Tabular Description</p>
+              </a>
+            </li>
+            <!-- <li class="nav-item ">
+              <a class="nav-link" href="/ui-icons">
+                <i class="material-icons">bubble_chart</i>
+                <p>Icons</p>
+              </a>  
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/ui-notifications">
+                    <i class="material-icons">notifications</i>
+                    <p>Notifications</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/page-user">
+                    <i class="material-icons">person</i>
+                    <p>User Profile</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="/page-map">
+                <i class="material-icons">location_ons</i>
+                <p>Maps</p>
+              </a>
+            </li> -->
+
+            <li class="nav-item ">
+                <a class="nav-link" href={{ url_for('base_blueprint.logout') }} >
+                    <i class="material-icons">directions_run</i>
+                    <p>Logout</p>
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item active-pro ">
+            </li> 
+
+          </ul>
+        </div>
+    </div>

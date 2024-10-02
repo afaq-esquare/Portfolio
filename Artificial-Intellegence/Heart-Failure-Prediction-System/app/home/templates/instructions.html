@@ -1,0 +1,20 @@
+{% extends "base-site.html" %}
+
+{% block title %} prediction {% endblock %}
+
+{% block content %}
+
+<!-- Add this modal at the end of your HTML body -->
+<div id="instructionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <!-- Add your instructions or content here -->
+        <p>Instructions: ...</p>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

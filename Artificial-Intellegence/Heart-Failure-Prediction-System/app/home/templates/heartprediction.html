@@ -1,0 +1,404 @@
+{% extends "base-site.html" %}
+
+{% block title %} prediction {% endblock %}
+
+{% block content %}
+
+<style>
+  /* Add this style to your existing styles or in a separate style tag */
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 50%;
+  }
+
+  .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+</style>
+
+
+<!-- Add this button wherever you want on your prediction page -->
+<button onclick="openModal()">Show Instructions</button>
+
+<!-- Add this modal at the end of your HTML body -->
+<div id="instructionModal" class="modal">
+  <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <!-- Add your instructions or content here -->
+      <h3><strong>Instructions:</strong></h3>
+      <div class="instruction-item">
+        <p>Age: Enter the age of the patient in years.</p>
+      </div>
+      <div class="instruction-item">
+        <p>Sex: Enter the patient's gender - M for Male, F for Female.</p>
+      </div>
+      <div class="instruction-item">
+        <p>Chest Pain Type: Enter the type of chest pain experienced by the patient.</p>
+        <ul>
+          <li><strong>TA:</strong> Typical Angina</li>
+          <li><strong>ATA:</strong> Atypical Angina</li>
+          <li><strong>NAP:</strong> Non-Anginal Pain</li>
+          <li><strong>ASY:</strong> Asymptomatic</li>
+        </ul>
+      </div>
+      <div class="instruction-item">
+        <p>Resting Blood Pressure (RestingBP): Input the resting blood pressure of the patient in mm Hg.</p>
+      </div>
+      <div class="instruction-item">
+        <p>Serum Cholesterol (Cholesterol): Enter the serum cholesterol level of the patient in mm/dl.</p>
+      </div>
+      <div class="instruction-item">
+        <p>Fasting Blood Sugar (FastingBS): Indicate whether the fasting blood sugar is greater than 120 mg/dl (1) or not (0).</p>
+      </div>
+      <div class="instruction-item">
+        <p>Resting ECG: Enter the result of the resting electrocardiogram.</p>
+        <ul>
+          <li><strong>Normal:</strong> Normal</li>
+          <li><strong>ST:</strong> ST-T wave abnormality</li>
+          <li><strong>LVH:</strong> Probable or definite left ventricular hypertrophy</li>
+        </ul>
+      </div>
+      <div class="instruction-item">
+        <p>Maximum Heart Rate (MaxHR): Input the maximum heart rate achieved by the patient (numeric value between 60 and 202).</p>
+      </div>
+      <div class="instruction-item">
+        <h5>Exercise-Induced Angina (ExerciseAngina): Select whether the patient experienced exercise-induced angina (Y for Yes, N for No).</h5>
+      </div>
+      <div class="instruction-item">
+        <p>Oldpeak: Enter the value of oldpeak, measured in depression.</p>
+      </div>
+      <div class="instruction-item">
+        <p>ST Segment Slope (ST_Slope): Enter the slope of the peak exercise ST segment.</p>
+        <ul>
+          <li><strong>Up:</strong> Upsloping</li>
+          <li><strong>Flat:</strong> Flat</li>
+          <li><strong>Down:</strong> Downsloping</li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<form method="POST" action="/predict">
+  <div class="body">
+    <div class="form" style="
+        background-color: #15172b;
+        border-radius: 20px;
+        box-sizing: border-box;
+        padding: 50px;
+        width: 80%;
+        margin: auto">
+      <div class="title" style="
+          color: #eee;
+          font-family: sans-serif;
+          font-size: 36px;
+          font-weight: 600;
+          margin-top: 30px;
+          text-align: center;
+          margin-bottom: 20px;">Heart Failure Predict</div>
+      <div class="subtitle" style="
+          color: #eee;
+          font-family: sans-serif;
+          font-size: 16px;
+          font-weight: 600;
+          margin-top: 10px;
+          text-align: center;
+          margin-bottom: 20px;">Let's input your details</div>
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="enter your age" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="age">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">Age</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" placeholder="enter your gender 'M'/'F'" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="sex">
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Sex</label>
+        </div>
+      </div>
+
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="NAP/ASY/ATA/TA" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="chestpain_type">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">Chest Pain Type</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" placeholder="enter resting bp" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="resting_bp">
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Resting Bp</label>
+        </div>
+      </div>
+
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="enter cholesterol level" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="cholesterol">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">Cholesterol</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" placeholder="enter fasting bp 0/1" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="fasting_bp">
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Fasting Bp</label>
+        </div>
+      </div>
+
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="Normal/ST" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="resting_ecg">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">Resting ECG</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" placeholder="enter max heart rate" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="max_hr">
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Max HR</label>
+        </div>
+      </div>
+
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="Y/N" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="exercise_angina">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">Exercise Angina</label>
+        </div>
+        <div class="input-container ic2">
+          <input id="lastname" class="input" placeholder="enter old peak (-1 to 4)" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="old_peak">
+          <div class="cut"></div>
+          <label for="lastname" class="placeholder">Old Peak</label>
+        </div>
+      </div>
+
+      <div style="display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        padding: 10px;">
+        <div class="input-container ic1">
+          <label for="firstname" class="placeholder">Where you feel pain or discomfort:</label>
+          <div style="display: flex;
+          justify-content: center;
+          align-items: center;">
+            <div>
+              <label class="container">Neck
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div>
+              <label class="container">Back
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div>
+              <label class="container">Jaw
+                <input type="checkbox">
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="input-container ic1">
+          <input id="firstname" class="input" placeholder="Up/Flat" style="background-color: #303245;
+          border-radius: 12px;
+          border: 0;
+          box-sizing: border-box;
+          color: #eee;
+          font-size: 18px;
+          outline: 0;
+          padding: 4px 20px 0;" type="text" name="st_slope">
+          <div class="cut"></div>
+          <label for="firstname" class="placeholder">St Slope</label>
+        </div>
+      </div>
+      <!-- <div style="display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 10px;">
+      <h5>What type of pain you feel?</h5>
+        <div>
+          <label class="container">Jaw
+            <input type="checkbox" checked="checked">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div>
+          <label class="container">Neck
+            <input type="checkbox">
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </div> -->
+
+
+      <div style="display: flex;
+      justify-content: center;
+      align-items: center;">
+        <input style="background-color: rgb(150, 100, 230);
+        border-radius: 12px;
+        border: 0;
+        box-sizing: border-box;
+        color: #eee;
+        cursor: pointer;
+        font-size: 18px;
+        height: 50px;
+        margin-top: 38px;
+        text-align: center;
+        width: 50%;" type="submit" value="Predict">
+        </div>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      function openModal() {
+          var modal = document.getElementById("instructionModal");
+          if (modal) {
+              modal.style.display = "block";
+          } else {
+              console.error("Modal element not found");
+          }
+      }
+
+      function closeModal() {
+          var modal = document.getElementById("instructionModal");
+          if (modal) {
+              modal.style.display = "none";
+          } else {
+              console.error("Modal element not found");
+          }
+      }
+
+      // Assign the functions to the window object to make them globally accessible
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+  });
+</script>
+
+
+
+{% endblock javascripts %}
